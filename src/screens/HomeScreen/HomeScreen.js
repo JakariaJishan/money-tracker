@@ -1,88 +1,108 @@
-import {
-  Box,
-  Center,
-  Container,
-  Heading,
-  NativeBaseProvider,
-  Text,
-  ZStack,
-} from "native-base";
-import React from "react";
+import { AddIcon, Box, Button, Center, CheckIcon, ChevronLeftIcon, ChevronRightIcon, Divider, HStack, NativeBaseProvider, PlayIcon, QuestionOutlineIcon, Select, Text } from 'native-base';
+import React, { useState } from 'react';
+import Expenses from '../../components/Expenses';
+import Item from '../../components/Item';
 
 const HomeScreen = () => {
-  return (
-    <NativeBaseProvider>
-      <Box>
-        <Box
-          alignSelf="center"
-          _text={{
-            fontSize: "md",
-            fontWeight: "medium",
-            color: "warmGray.50",
-            letterSpacing: "lg",
-          }}
-          bg={["red.400", "blue.400"]}
-        >
-          This is a Box
-        </Box>
-      </Box>
-      <Center>
-        <Center
-          bg="primary.400"
-          _text={{
-            color: "white",
-            fontWeight: "bold",
-          }}
-          height={200}
-          width={{
-            base: 200,
-            lg: 250,
-          }}
-        >
-          This is the Center
-        </Center>
-      </Center>
-      {/* Container */}
-      <Center>
-        <Container>
-          <Heading>
-            A component library for the
-            <Text color="emerald.500"> React Ecosystem</Text>
-          </Heading>
-          <Text mt="3" fontWeight="medium">
-            NativeBase is a simple, modular and accessible component library
-            that gives you building blocks to build you React applications.
-          </Text>
-        </Container>
-      </Center>
-
-      {/* Zstack */}
-
-      <Center h="40">
-        <Box mt="-32">
-          <ZStack mt="3" ml={-50}>
-            <Box bg="red.700" size="40" rounded="lg" shadow={3} />
-            <Box
-              bg="green.500"
-              mt="5"
-              ml="5"
-              size="40"
-              rounded="lg"
-              shadow={5}
+    const [service, setService] = useState("");
+    return (
+      <NativeBaseProvider>
+        <HStack justifyContent="start">
+          <Center marginLeft={3}>
+            <QuestionOutlineIcon size="xl" />
+          </Center>
+          <Center flex={1}>
+            <Box maxW="300">
+              <Select
+                borderRadius="10"
+                textAlign="center"
+                placeholderTextColor="muted.400"
+                fontSize="16"
+                selectedValue={service}
+                maxWidth="200"
+                accessibilityLabel="Search"
+                placeholder="Search"
+                _selectedItem={{
+                  bg: "muted.600",
+                  endIcon: <CheckIcon size="xs" color="emerald.500" />,
+                }}
+                dropdownIcon={true}
+                mt={1}
+                onValueChange={(itemValue) => setService(itemValue)}
+              >
+                <Select.Item label="2023" value="2023" />
+                <Select.Item label="2023" value="2023" />
+                <Select.Item label="2023" value="2023" />
+                <Select.Item label="2023" value="2023" />
+              </Select>
+            </Box>
+          </Center>
+          <Center style={{visibility: "hidden"}}>
+            <QuestionOutlineIcon size="xl" />
+          </Center>
+        </HStack>
+        <Box flex={1} backgroundColor="muted.400" mt={1}>
+          <HStack justifyContent="center" my={2} space={6}>
+            <ChevronLeftIcon size="md" color="white" />
+            <ChevronRightIcon size="md" color="white" />
+          </HStack>
+          <Center>
+            <Divider
+              borderRadius="10"
+              borderStyle="solid"
+              borderColor="white"
+              borderWidth={1}
+              width="80%"
+              bg="red.600"
+              thickness={10}
             />
-            <Box
-              bg="yellow.300"
-              mt="10"
-              ml="10"
-              size="40"
-              rounded="lg"
-              shadow={7}
-            />
-          </ZStack>
+          </Center>
+          <Expenses />
+          <Box marginTop="auto" width="60%" mx="auto" mb="3" >
+            <HStack direction="row" justifyContent="center" space={6}>
+              <Button
+                variant="outline"
+                leftIcon={<AddIcon />}
+                colorScheme="white"
+                color="white"
+                borderWidth={2}
+                _text={{
+                  color: "white",
+                  fontWeight: "bold"
+  
+                }}
+              >
+                Expense
+              </Button>
+              <Button
+                variant="outline"
+                leftIcon={<AddIcon />}
+                colorScheme="white"
+                color="white"
+                borderWidth={2}
+                _text={{
+                  color: "white",
+                  fontWeight: "bold"
+                }}
+              >
+                Income
+              </Button>
+            </HStack>
+          </Box>
+          <Box mb={2}>
+            <Center>
+              <Text color="gray.300" bold>** Rotate device to view reports **</Text>
+            </Center>
+          </Box>
         </Box>
-      </Center>
-    </NativeBaseProvider>
-  );
-};
+        <HStack direction="row" space={8} justifyContent="center" p={4}>
+          <Item icon={PlayIcon} text="Spending" />
+          <Item icon={PlayIcon} text="Paused" />
+          <Item icon={PlayIcon} text="Stopped" />
+          <Item icon={PlayIcon} text="Stopped" />
+        </HStack>
+      </NativeBaseProvider>
+    );
+}
 
-export default HomeScreen;
+export default HomeScreen
